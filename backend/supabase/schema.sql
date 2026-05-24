@@ -1,0 +1,12 @@
+-- schema.sql
+-- Esquema base de Supabase para la quiniela.
+--
+-- Estado actual:
+-- - No crear tablas reales todavia.
+-- - Este archivo queda reservado para profiles, matches, predictions y admin_users.
+--
+-- Reglas para futuras ediciones:
+-- - Usar UUID como identificadores principales.
+-- - Usar timestamp with time zone para fechas de partidos.
+-- - Agregar restricciones para evitar predicciones duplicadas por usuario y partido.
+-- - Mantener el esquema simple para la demo.

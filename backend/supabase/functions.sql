@@ -1,0 +1,14 @@
+-- functions.sql
+-- Funciones SQL/RPC para reglas de negocio en Supabase.
+--
+-- Estado actual:
+-- - No crear funciones reales todavia.
+--
+-- Funciones previstas:
+-- - Calculo de puntos por prediccion.
+-- - Recalculo de puntos al actualizar resultados reales.
+--
+-- Regla de puntuacion inicial:
+-- - Marcador exacto: 5 puntos.
+-- - Resultado correcto: 3 puntos.
+-- - Sin acierto: 0 puntos.

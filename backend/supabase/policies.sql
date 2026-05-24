@@ -1,0 +1,11 @@
+-- policies.sql
+-- Politicas Row Level Security de Supabase.
+--
+-- Estado actual:
+-- - No crear politicas reales todavia.
+--
+-- Reglas para futuras ediciones:
+-- - Cada usuario debe poder leer y modificar solo sus propias predicciones.
+-- - Los partidos deben ser legibles por usuarios autenticados.
+-- - La carga de resultados debe limitarse a administradores.
+-- - Evitar depender solo de validaciones del frontend para seguridad.

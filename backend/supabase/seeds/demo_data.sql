@@ -1,0 +1,12 @@
+-- demo_data.sql
+-- Datos semilla para demo.
+--
+-- Estado actual:
+-- - No insertar datos reales todavia.
+--
+-- Datos previstos:
+-- - Partidos de ejemplo.
+-- - Usuarios de prueba, si se define un flujo seguro para auth.
+-- - Resultados de ejemplo para validar ranking.
+--
+-- No incluir secretos ni credenciales reales.

@@ -1,0 +1,11 @@
+-- views.sql
+-- Vistas SQL para consultas agregadas de la demo.
+--
+-- Estado actual:
+-- - No crear vistas reales todavia.
+--
+-- Vistas previstas:
+-- - ranking general por puntos.
+-- - resumen de predicciones por usuario, si hace falta.
+--
+-- Mantener las vistas legibles y documentadas.
