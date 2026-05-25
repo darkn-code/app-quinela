@@ -3,23 +3,46 @@ services:
     build:
       context: ./frontend
       dockerfile: Dockerfile
+      target: development
     container_name: quiniela-mundial-frontend
     working_dir: /app
     ports:
       - "5173:5173"
     volumes:
-      - ./frontend:/app
-      - frontend_node_modules:/app/node_modules
+      - ./frontend/src:/app/src
+      - ./frontend/index.html:/app/index.html
+      - ./frontend/vite.config.js:/app/vite.config.js
     environment:
       APP_ENV: ${APP_ENV:-local}
       VITE_SUPABASE_URL: ${VITE_SUPABASE_URL:-}
       VITE_SUPABASE_ANON_KEY: ${VITE_SUPABASE_ANON_KEY:-}
-    command: >
-      sh -c "if [ -f package.json ]; then
-      npm install && npm run dev -- --host 0.0.0.0;
-      else
-      echo 'Frontend React + Vite no inicializado todavia. Crea la app dentro de /frontend para iniciar Vite.' && sleep infinity;
-      fi"
+      VITE_SUPABASE_PUBLISHABLE_KEY: ${VITE_SUPABASE_PUBLISHABLE_KEY:-}
+    command: npm run dev -- --host 0.0.0.0
 
-volumes:
-  frontend_node_modules:
+  frontend-prod:
+    build:
+      context: ./frontend
+      dockerfile: Dockerfile
+      target: production
+      args:
+        VITE_SUPABASE_URL: ${VITE_SUPABASE_URL:-}
+        VITE_SUPABASE_ANON_KEY: ${VITE_SUPABASE_ANON_KEY:-}
+        VITE_SUPABASE_PUBLISHABLE_KEY: ${VITE_SUPABASE_PUBLISHABLE_KEY:-}
+    container_name: quiniela-mundial-frontend-prod
+    profiles:
+      - deploy
+    ports:
+      - "8080:80"
+
+  supabase-db-client:
+    image: postgres:16-alpine
+    profiles:
+      - tools
+    working_dir: /workspace
+    volumes:
+      - .:/workspace:ro
+    environment:
+      SUPABASE_DB_URL: ${SUPABASE_DB_URL:-}
+    entrypoint:
+      - sh
+      - -lc

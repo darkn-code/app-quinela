@@ -1,9 +1,39 @@
-FROM node:20-alpine
+FROM node:20-alpine AS deps
 
 WORKDIR /app
 
+COPY package.json package-lock.json ./
+RUN npm ci
+
+FROM deps AS development
+
+WORKDIR /app
+
+COPY . .
+
 EXPOSE 5173
 
-# This image is ready for a React + Vite app.
-# Until package.json exists, docker-compose keeps the container alive with a clear message.
-CMD ["sh", "-c", "if [ -f package.json ]; then npm install && npm run dev -- --host 0.0.0.0; else echo 'Frontend React + Vite no inicializado todavia.' && sleep infinity; fi"]
+CMD ["npm", "run", "dev", "--", "--host", "0.0.0.0"]
+
+FROM deps AS build
+
+WORKDIR /app
+
+ARG VITE_SUPABASE_URL
+ARG VITE_SUPABASE_ANON_KEY
+ARG VITE_SUPABASE_PUBLISHABLE_KEY
+ENV VITE_SUPABASE_URL=$VITE_SUPABASE_URL
+ENV VITE_SUPABASE_ANON_KEY=$VITE_SUPABASE_ANON_KEY
+ENV VITE_SUPABASE_PUBLISHABLE_KEY=$VITE_SUPABASE_PUBLISHABLE_KEY
+
+COPY . .
+RUN npm run build
+
+FROM nginx:1.27-alpine AS production
+
+COPY nginx.conf /etc/nginx/conf.d/default.conf
+COPY --from=build /app/dist /usr/share/nginx/html
+
+EXPOSE 80
+
+CMD ["nginx", "-g", "daemon off;"]

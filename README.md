@@ -15,7 +15,7 @@ Este repositorio esta preparado para que trabajen dos agentes separados:
 - Base de datos: Supabase PostgreSQL.
 - Auth: Supabase Auth o acceso simple definido mas adelante.
 - Docker: Docker Compose para desarrollo local.
-- Deploy: frontend estatico en hosting web, VPS, Vercel, Netlify o Cloudflare Pages; Supabase como servicio externo.
+- Deploy: imagen Docker de frontend estatico con Nginx para VPS o hosting compatible; Supabase como servicio externo.
 
 ## Estructura de carpetas
 
@@ -29,8 +29,13 @@ quiniela-mundial/
 ├── .gitignore
 ├── frontend/
 │   ├── Dockerfile
+│   ├── nginx.conf
+│   ├── index.html
+│   ├── package.json
+│   ├── vite.config.js
+│   ├── src/
 │   ├── README.md
-│   └── .gitkeep
+│   └── ...
 ├── backend/
 │   ├── README.md
 │   ├── supabase/
@@ -80,6 +85,32 @@ Detener contenedores:
 docker compose down
 ```
 
+Validar build del frontend dentro de Docker, sin instalar dependencias en el host:
+
+```bash
+docker build --target build -t quiniela-mundial-frontend-build ./frontend
+```
+
+Construir imagen de produccion para servidor:
+
+```bash
+docker compose --profile deploy build frontend-prod
+```
+
+Para produccion, definir `VITE_SUPABASE_URL` y `VITE_SUPABASE_ANON_KEY` en `.env` antes de construir. Vite fija esas variables durante el build de la imagen.
+
+Probar imagen de produccion localmente:
+
+```bash
+docker compose --profile deploy up frontend-prod
+```
+
+La imagen de produccion queda expuesta localmente en:
+
+```text
+http://localhost:8080
+```
+
 ## Flujo recomendado de trabajo
 
 1. Revisar `PLAN_PROYECTO.md`.
@@ -92,4 +123,4 @@ docker compose down
 
 ## Estado actual
 
-Esta estructura solo prepara la base del proyecto. Todavia no hay componentes React, tablas reales ni logica de quiniela implementada.
+El frontend ya corre como demo React + Vite con datos mock y `localStorage`. El backend Supabase tiene scripts SQL iniciales para esquema, politicas, funciones, vistas y seeds de demo. La conexion real entre frontend y Supabase queda como siguiente etapa.

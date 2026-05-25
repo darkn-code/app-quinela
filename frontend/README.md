@@ -1,6 +1,6 @@
 # Frontend
 
-Carpeta reservada para la app React + Vite de la quiniela.
+App React + Vite mobile-first para la quiniela del Mundial.
 
 ## Responsabilidad
 
@@ -16,22 +16,53 @@ Carpeta reservada para la app React + Vite de la quiniela.
 - CSS mobile-first.
 - Supabase JS client.
 
-## Comandos previstos
+## Comandos con Docker
 
-Estos comandos aplicaran cuando se inicialice la app React dentro de esta carpeta:
-
-```bash
-npm install
-npm run dev
-npm run build
-```
-
-Con Docker Compose desde la raiz:
+Desde la raiz del repositorio:
 
 ```bash
 docker compose up --build
 ```
 
+Build de verificacion sin instalar dependencias en la PC:
+
+```bash
+docker build --target build -t quiniela-mundial-frontend-build ./frontend
+```
+
+Imagen de produccion para servidor:
+
+```bash
+docker compose --profile deploy build frontend-prod
+```
+
+Las variables `VITE_SUPABASE_URL` y `VITE_SUPABASE_ANON_KEY` deben estar en `.env` antes de construir la imagen de produccion.
+
+El `Dockerfile` instala dependencias con `npm ci` durante el build de la imagen. No se requiere instalar paquetes en el host.
+
+El contenedor de desarrollo usa el `node_modules` de la imagen. Si cambian `package.json` o `package-lock.json`, reconstruir la imagen con `docker compose build frontend`.
+
 ## Estado actual
 
-No hay componentes React todavia. Esta carpeta solo queda preparada para el agente frontend.
+La app funciona en dos modos:
+
+- Sin variables `VITE_SUPABASE_URL` y `VITE_SUPABASE_ANON_KEY`: modo demo con datos mock y `localStorage`.
+- Con variables Supabase: usa Supabase Auth con email/password, lee `match_cards`, `my_predictions` y `ranking_general`, y guarda predicciones en `predictions`.
+
+Vistas incluidas:
+
+- Acceso simple por nombre en modo mock.
+- Auth email/password en modo Supabase.
+- Dashboard.
+- Partidos desde mock o vista `match_cards`.
+- Formulario de prediccion con upsert autenticado en `predictions`.
+- Ranking desde mock o vista `ranking_general`.
+
+Supabase queda preparado en `src/lib/supabase.js` usando:
+
+```bash
+VITE_SUPABASE_URL
+VITE_SUPABASE_ANON_KEY
+```
+
+No se deben exponer claves privadas ni `service_role` en variables `VITE_`.

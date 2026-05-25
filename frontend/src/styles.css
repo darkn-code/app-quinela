@@ -1,0 +1,448 @@
+:root {
+  color: #17211f;
+  font-family:
+    Inter, ui-sans-serif, system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", sans-serif;
+  background: #eef5f1;
+  font-synthesis: none;
+  text-rendering: optimizeLegibility;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  min-width: 320px;
+  min-height: 100vh;
+}
+
+button,
+input {
+  font: inherit;
+}
+
+button {
+  cursor: pointer;
+}
+
+button:disabled,
+input:disabled {
+  cursor: not-allowed;
+  opacity: 0.65;
+}
+
+.login-screen {
+  display: grid;
+  min-height: 100vh;
+  padding: 24px;
+  place-items: center;
+}
+
+.login-panel,
+.hero-panel,
+.info-card,
+.match-card,
+.stat-card,
+.ranking-row {
+  border: 1px solid #d6e3dc;
+  border-radius: 8px;
+  background: #ffffff;
+  box-shadow: 0 10px 30px rgb(15 35 30 / 8%);
+}
+
+.login-panel {
+  width: min(100%, 430px);
+  padding: 28px;
+}
+
+.eyebrow {
+  margin: 0 0 8px;
+  color: #0f766e;
+  font-size: 0.78rem;
+  font-weight: 800;
+  text-transform: uppercase;
+}
+
+h1,
+h2,
+p {
+  margin-top: 0;
+}
+
+h1 {
+  margin-bottom: 12px;
+  font-size: 2rem;
+  line-height: 1.05;
+}
+
+h2 {
+  margin-bottom: 8px;
+  font-size: 1rem;
+}
+
+.login-copy,
+.hero-panel p,
+.info-card p,
+.ranking-row p,
+.venue,
+.result-line {
+  color: #52645f;
+}
+
+.login-form {
+  display: grid;
+  gap: 12px;
+  margin-top: 24px;
+}
+
+.auth-toggle,
+.mode-switch {
+  display: grid;
+  grid-template-columns: repeat(2, minmax(0, 1fr));
+  gap: 8px;
+}
+
+.toggle-button {
+  min-height: 44px;
+  border: 1px solid #bdcdc6;
+  border-radius: 8px;
+  background: #ffffff;
+  color: #52645f;
+  font-weight: 800;
+}
+
+.toggle-button-active {
+  border-color: #0f766e;
+  background: #e2f4ee;
+  color: #0f766e;
+}
+
+.mode-switch label {
+  display: flex;
+  align-items: center;
+  gap: 8px;
+  min-height: 44px;
+  border: 1px solid #bdcdc6;
+  border-radius: 8px;
+  padding: 8px 10px;
+}
+
+.mode-switch input {
+  width: auto;
+  min-height: auto;
+  margin: 0;
+}
+
+.form-message,
+.form-error,
+.notice-card {
+  border-radius: 8px;
+  padding: 10px 12px;
+  font-size: 0.9rem;
+}
+
+.form-message {
+  background: #e2f4ee;
+  color: #0f766e;
+}
+
+.form-error {
+  background: #fde7d9;
+  color: #a34716;
+}
+
+.notice-card {
+  display: grid;
+  gap: 10px;
+  border: 1px solid #f3c7ad;
+  background: #fff7ed;
+  color: #7c2d12;
+}
+
+.notice-card p {
+  margin: 0;
+}
+
+.app-alert {
+  border: 1px solid #f3c7ad;
+  border-radius: 8px;
+  padding: 10px 12px;
+  background: #fff7ed;
+  color: #7c2d12;
+}
+
+label {
+  color: #33413d;
+  font-size: 0.9rem;
+  font-weight: 700;
+}
+
+input {
+  width: 100%;
+  min-height: 46px;
+  margin-top: 6px;
+  border: 1px solid #bdcdc6;
+  border-radius: 8px;
+  padding: 10px 12px;
+  background: #ffffff;
+  color: #17211f;
+}
+
+input:focus {
+  border-color: #0f766e;
+  outline: 3px solid rgb(15 118 110 / 16%);
+}
+
+.primary-button,
+.secondary-button,
+.ghost-button,
+.nav-item {
+  min-height: 44px;
+  border-radius: 8px;
+  border: 0;
+  font-weight: 800;
+}
+
+.primary-button {
+  width: 100%;
+  padding: 12px 16px;
+  background: #0f766e;
+  color: #ffffff;
+}
+
+.secondary-button {
+  padding: 10px 14px;
+  background: #17211f;
+  color: #ffffff;
+}
+
+.ghost-button {
+  padding: 9px 12px;
+  border: 1px solid #c8d8d1;
+  background: #ffffff;
+  color: #17211f;
+}
+
+.app-shell {
+  min-height: 100vh;
+  padding-bottom: 76px;
+}
+
+.app-header {
+  position: sticky;
+  top: 0;
+  z-index: 2;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  border-bottom: 1px solid #d6e3dc;
+  padding: 14px 16px;
+  background: rgb(238 245 241 / 94%);
+  backdrop-filter: blur(10px);
+}
+
+.app-header span,
+.app-header small {
+  display: block;
+}
+
+.app-header span {
+  font-weight: 900;
+}
+
+.app-header small {
+  margin-top: 2px;
+  color: #60736d;
+}
+
+.app-main {
+  width: min(100%, 760px);
+  margin: 0 auto;
+  padding: 18px 16px;
+}
+
+.screen-section,
+.match-list,
+.ranking-list {
+  display: grid;
+  gap: 14px;
+}
+
+.hero-panel,
+.info-card,
+.match-card {
+  padding: 18px;
+}
+
+.hero-panel .primary-button {
+  margin-top: 10px;
+}
+
+.stats-grid {
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 10px;
+}
+
+.stat-card {
+  min-height: 92px;
+  padding: 14px 10px;
+  text-align: center;
+}
+
+.stat-card span {
+  display: block;
+  font-size: 1.6rem;
+  font-weight: 900;
+}
+
+.stat-card p {
+  margin: 4px 0 0;
+  color: #60736d;
+  font-size: 0.78rem;
+}
+
+.section-heading h1 {
+  margin-bottom: 0;
+}
+
+.match-meta,
+.match-teams,
+.prediction-form,
+.ranking-row {
+  display: flex;
+  align-items: center;
+}
+
+.match-meta {
+  justify-content: space-between;
+  gap: 10px;
+  color: #60736d;
+  font-size: 0.8rem;
+}
+
+.status {
+  border-radius: 999px;
+  padding: 4px 9px;
+  background: #d7f7eb;
+  color: #0f766e;
+  font-weight: 800;
+}
+
+.status-locked {
+  background: #fde7d9;
+  color: #a34716;
+}
+
+.match-teams {
+  justify-content: space-between;
+  gap: 10px;
+  margin-top: 14px;
+  font-size: 1.05rem;
+}
+
+.match-teams strong {
+  flex: 1;
+}
+
+.match-teams strong:last-child {
+  text-align: right;
+}
+
+.venue,
+.result-line {
+  margin: 10px 0 0;
+  font-size: 0.88rem;
+}
+
+.prediction-form {
+  display: grid;
+  grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr);
+  gap: 10px;
+  margin-top: 14px;
+}
+
+.prediction-form .secondary-button {
+  grid-column: 1 / -1;
+}
+
+.score-separator {
+  align-self: end;
+  padding-bottom: 12px;
+  color: #60736d;
+  font-weight: 900;
+}
+
+.ranking-row {
+  min-height: 76px;
+  gap: 12px;
+  padding: 12px;
+}
+
+.rank-position,
+.rank-points {
+  display: grid;
+  flex: 0 0 42px;
+  width: 42px;
+  height: 42px;
+  place-items: center;
+  border-radius: 8px;
+  font-weight: 900;
+}
+
+.rank-position {
+  background: #e2f4ee;
+  color: #0f766e;
+}
+
+.rank-points {
+  margin-left: auto;
+  background: #17211f;
+  color: #ffffff;
+}
+
+.ranking-row p {
+  margin: 4px 0 0;
+  font-size: 0.82rem;
+}
+
+.bottom-nav {
+  position: fixed;
+  right: 0;
+  bottom: 0;
+  left: 0;
+  z-index: 3;
+  display: grid;
+  grid-template-columns: repeat(3, minmax(0, 1fr));
+  gap: 8px;
+  border-top: 1px solid #d6e3dc;
+  padding: 10px 12px;
+  background: #ffffff;
+}
+
+.nav-item {
+  background: transparent;
+  color: #52645f;
+}
+
+.nav-item-active {
+  background: #0f766e;
+  color: #ffffff;
+}
+
+@media (min-width: 700px) {
+  .app-main {
+    padding-top: 28px;
+  }
+
+  .prediction-form {
+    grid-template-columns: minmax(0, 1fr) auto minmax(0, 1fr) auto;
+  }
+
+  .prediction-form .secondary-button {
+    grid-column: auto;
+    align-self: end;
+  }
+}

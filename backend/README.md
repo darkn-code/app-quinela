@@ -1,30 +1,50 @@
 # Backend / Supabase
 
-Carpeta reservada para la configuracion de Supabase de la demo.
-
-## Responsabilidad
-
-- Definir el esquema SQL cuando inicie la etapa backend.
-- Crear politicas Row Level Security.
-- Crear vistas para ranking y consultas agregadas.
-- Crear funciones SQL/RPC si hacen falta para calculo de puntos.
-- Mantener datos seed de demo.
+Carpeta de configuracion SQL para Supabase.
 
 ## Estructura
 
 ```text
 backend/
 ├── README.md
-├── supabase/
-│   ├── schema.sql
-│   ├── policies.sql
-│   ├── views.sql
-│   ├── functions.sql
-│   └── seeds/
-│       └── demo_data.sql
-└── .gitkeep
+└── supabase/
+    ├── apply_demo.sql
+    ├── schema.sql
+    ├── functions.sql
+    ├── policies.sql
+    ├── views.sql
+    └── seeds/
+        └── demo_data.sql
 ```
 
-## Estado actual
+## Orden de ejecucion
 
-Los archivos SQL contienen comentarios base. Todavia no se crean tablas reales ni reglas de negocio en base de datos.
+Para una demo separada, aplicar todo con un solo comando desde Docker Compose:
+
+```bash
+docker compose --profile tools run --rm supabase-db-client 'psql "$SUPABASE_DB_URL" -v ON_ERROR_STOP=1 -f backend/supabase/apply_demo.sql'
+```
+
+Ese comando usa el servicio `supabase-db-client`, que ejecuta `psql` dentro de Docker. No requiere instalar `psql` en el host.
+
+`SUPABASE_DB_URL` debe estar definido en `.env` o en el entorno local. No commitear `.env`.
+
+Internamente, `apply_demo.sql` ejecuta los scripts en este orden:
+
+1. `schema.sql`
+2. `functions.sql`
+3. `policies.sql`
+4. `views.sql`
+5. `seeds/demo_data.sql`
+
+Tambien se pueden ejecutar de forma individual para depurar:
+
+```bash
+docker compose --profile tools run --rm supabase-db-client 'psql "$SUPABASE_DB_URL" -v ON_ERROR_STOP=1 -f backend/supabase/schema.sql'
+docker compose --profile tools run --rm supabase-db-client 'psql "$SUPABASE_DB_URL" -v ON_ERROR_STOP=1 -f backend/supabase/functions.sql'
+docker compose --profile tools run --rm supabase-db-client 'psql "$SUPABASE_DB_URL" -v ON_ERROR_STOP=1 -f backend/supabase/policies.sql'
+docker compose --profile tools run --rm supabase-db-client 'psql "$SUPABASE_DB_URL" -v ON_ERROR_STOP=1 -f backend/supabase/views.sql'
+docker compose --profile tools run --rm supabase-db-client 'psql "$SUPABASE_DB_URL" -v ON_ERROR_STOP=1 -f backend/supabase/seeds/demo_data.sql'
+```
+
+La documentacion completa esta en `docs/backend_supabase.md`.

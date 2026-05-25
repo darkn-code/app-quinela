@@ -39,8 +39,29 @@ Levantar entorno:
 docker compose up --build
 ```
 
+Construir imagen de produccion del frontend:
+
+```bash
+docker compose --profile deploy build frontend-prod
+```
+
+Las variables `VITE_SUPABASE_URL` y `VITE_SUPABASE_ANON_KEY` se leen desde `.env` durante el build de Vite. Si cambian para produccion, reconstruir la imagen.
+
+Probar la imagen de produccion localmente:
+
+```bash
+docker compose --profile deploy up frontend-prod
+```
+
+La version de produccion queda disponible localmente en:
+
+```text
+http://localhost:8080
+```
+
+La imagen `frontend-prod` compila React + Vite y sirve archivos estaticos con Nginx. Supabase se mantiene como servicio externo.
+
 ## Pendiente
 
 - Definir proveedor final de hosting.
-- Agregar pasos especificos de build cuando el frontend exista.
 - Documentar configuracion de dominio si aplica.
