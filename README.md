@@ -1,4 +1,3 @@
-<<<<<<< HEAD
 # Quiniela Mundial
 
 Demo web mobile-first para una quiniela del Mundial. El objetivo es validar rapidamente el flujo principal: usuarios, partidos, predicciones, carga de resultados y ranking basico.
@@ -127,5 +126,3 @@ http://localhost:8080
 El frontend ya corre como demo React + Vite con datos mock y `localStorage`. El backend Supabase tiene scripts SQL iniciales para esquema, politicas, funciones, vistas y seeds de demo. La conexion real entre frontend y Supabase queda como siguiente etapa.
 =======
 # app-quinela
-Quinela-test
->>>>>>> a2215b57e28353745c979003bc660ed8380c7f32
